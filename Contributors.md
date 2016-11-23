@@ -4,4 +4,8 @@ The Teamleader
 
 ###Evgenia Kushareva
 The Teamleader
-jenjakushareva@gmail.com 
+jenjakushareva@gmail.com
+
+###Mirugin Andrey
+The Teamleader
+armi25021998@gmail.com
