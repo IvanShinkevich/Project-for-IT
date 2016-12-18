@@ -3,7 +3,7 @@ The Teamleader
 2014ivanee@gmail.com
 
 ###Evgenia Kushareva
-Team member
+The Teamleader
 jenjakushareva@gmail.com
 
 ###Mirugin Andrey
