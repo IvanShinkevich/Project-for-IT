@@ -1,17 +1,21 @@
-
 #!/bin/bash
 echo Введите число
 read number
-devider=2
-second=1
-while [ $devider -lt $(($number/2)) ]; do
-	let "second=number%devider"
-	if [ $second -eq 0 ]; then
-		break
-	fi
-done
-if [ $second -eq 0 ]; then
-	echo Простое
+w=0
+if [ $number -eq 1 ]
+then
+	echo "Не простая"
 else
-	echo Не простое
+for (( i=2 ; i <= $(echo "sqrt($number)" | bc) ; i++))
+do
+let "sum = number % i"
+if [ $sum -eq 0 ]
+then
+w=1
+fi
+done
+if [ $w -eq 1 ]
+then echo "Не простое"
+else echo "Простое"
+fi
 fi
