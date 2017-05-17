@@ -8,5 +8,5 @@ read a
 case $a in
 1)echo "Files:  `find . -type f | wc -l`" `echo` Directiories:  `find . -type d | wc -l`;;
 2)head 20.sh;;
-3)echo `ps -la`;;
+3)echo `ps -u ivan`;;
 esac
