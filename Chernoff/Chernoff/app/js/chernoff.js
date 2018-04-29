@@ -184,11 +184,12 @@
         })();
 
     }, {}], 2: [function (require, module, exports) {
-        var ChernoffDemo = require('./client/chernoff_demo.js');
+        //Statring yebalo. Getting required modules and listening on loading
+        var chernoffdemo = require('./client/chernoff_demo.js');
         var domready = require('domready');
 
         domready(function () {
-            ChernoffDemo.start();
+            chernoffdemo.start();
         });
 
     }, { "./client/chernoff_demo.js": 3, "domready": 9 }], 3: [function (require, module, exports) {
