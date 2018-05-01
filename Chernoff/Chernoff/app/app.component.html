@@ -1,0 +1,13 @@
+﻿<div class="container">
+    <section class="content">
+        <span class="input input--kaede" *ngFor="let input of characteristicsMass" [class.input--filled]="input.completed">
+            <input class="input__field input__field--kaede" type="text" id={{input.name}} (input)="isEmpty($event,input.name)" />
+            <label class="input__label input__label--kaede" for={{input.name}}>
+                <span class="input__label-content input__label-content--kaede">{{input.name}}</span>
+            </label>
+        </span>
+    </section>
+ </div>
+<!--<div (click)="test()">Hello {{name}}</div>-->
+
+

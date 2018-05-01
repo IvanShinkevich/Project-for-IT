@@ -204,7 +204,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\content.html" />
+    <Content Include="app\app.component.css" />
+    <Content Include="app\app.component.html" />
     <Content Include="app\js\chernoff.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
