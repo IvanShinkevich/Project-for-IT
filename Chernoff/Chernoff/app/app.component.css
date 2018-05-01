@@ -1,28 +1,23 @@
-﻿/* .buttonToggle{
+﻿.buttonToggle {
     height: 5%;
     text-align: center;
-    background-color:#dd0031;
+    background-color: #dd0031;
     float: left;
-    border: 1px solid black;
-    width: 49%;
+    width: 50%;
     color: white;
 }
 
-/* .menuToggle{
+.menuToggle{
     width: 100%;
-} 
+}
 
 .pressed{
     background-color: #a3000b;
-} */
+}
 
-
-@font-face {
-    font-weight: normal;
-    font-style: normal;
-    font-family: 'codropsicons';
-    src: url('../fonts/codropsicons/codropsicons.eot');
-    src: url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'), url('../fonts/codropsicons/codropsicons.woff') format('woff'), url('../fonts/codropsicons/codropsicons.ttf') format('truetype'), url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
+.content{
+    float: left;
+    width: 49%;
 }
 
 *, *:after, *:before {
@@ -63,21 +58,21 @@ a {
     overflow: hidden;
 }
 
-.content {
-    font-size: 150%;
-    padding: 3em 0;
-}
+/*.content {*/
+    /*font-size: 150%;*/
+    /*padding: 3em 0;*/
+/*}*/
 
-    .content h2 {
-        margin: 0 0 2em;
-        opacity: 0.1;
-    }
+    /*.content h2 {*/
+        /*margin: 0 0 2em;*/
+        /*opacity: 0.1;*/
+    /*}*/
 
-    .content p {
-        margin: 1em 0;
-        padding: 5em 0 0 0;
-        font-size: 0.65em;
-    }
+    /*.content p {*/
+        /*margin: 1em 0;*/
+        /*padding: 5em 0 0 0;*/
+        /*font-size: 0.65em;*/
+    /*}*/
 
 .bgcolor-1 {
     background: #f0efee;
@@ -123,7 +118,7 @@ body .nomargin-bottom {
     position: relative;
     z-index: 1;
     display: inline-block;
-    margin: 1em;
+    margin: 1%;
     max-width: 400px;
     width: calc(100% - 2em);
     vertical-align: top;
@@ -156,7 +151,6 @@ body .nomargin-bottom {
     width: 40%;
     color: #6a7989;
     font-weight: bold;
-    font-size: 70.25%;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -186,9 +180,7 @@ body .nomargin-bottom {
 
 /* Kaede */
 .input--kaede {
-    display: block;
     overflow: hidden;
-    margin: 1em auto 2em;
     background: #EFEEEE;
 }
 

@@ -6,9 +6,6 @@
     styleUrls:[`./app/app.component.css`]
 })
 export class AppComponent {
-    apt:boolean=false;
-    name = 'драрп';
-    //characteristics: { name: string, value: number, completed: boolean };
     characteristicsMass = [
         { name: "eyew", value: 0, completed: false },
         { name: "eyeh", value: 0, completed: false },
@@ -19,8 +16,36 @@ export class AppComponent {
         { name: "noseh", value: 0, completed: false },
         { name: "face", value: 0, completed: false }
     ];
-    test() {
-        console.log("It's working!");
+
+    marksMass = [
+        {name: "Прога", value: 0, completed: false },
+        { name: "Мат анализ", value: 0, completed: false },
+        { name: "ИТ", value: 0, completed: false },
+        { name: "Алгебра", value: 0, completed: false },
+        { name: "Геома", value: 0, completed: false }
+    ];
+
+    activeButton:number=0;
+
+    buttonsArr=[
+        {name: "Standart",pressed:true},
+        {name:"Marks", pressed:false}
+    ];
+
+    test(){
+        console.log(this.buttonsArr[this.activeButton].name=='Standart')
+    }
+
+    pressButton(name:string){
+        for(var i=0;i<this.buttonsArr.length;i++){
+            this.buttonsArr[i].pressed = false;
+        }
+        for(var i=0;i<this.buttonsArr.length;i++){
+            if(name == this.buttonsArr[i].name){
+                this.buttonsArr[i].pressed = true;
+                this.activeButton = i;
+            }
+        }
     }
 
     isEmpty(ev:any,elem:string){
@@ -38,7 +63,6 @@ export class AppComponent {
                     break;
                 }
             }
-            console.log(this.characteristicsMass[i].completed);
             this.characteristicsMass[i].completed = false;
 
         }

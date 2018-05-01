@@ -9,9 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.apt = false;
-        this.name = 'драрп';
-        //characteristics: { name: string, value: number, completed: boolean };
         this.characteristicsMass = [
             { name: "eyew", value: 0, completed: false },
             { name: "eyeh", value: 0, completed: false },
@@ -22,9 +19,32 @@ var AppComponent = /** @class */ (function () {
             { name: "noseh", value: 0, completed: false },
             { name: "face", value: 0, completed: false }
         ];
+        this.marksMass = [
+            { name: "Прога", value: 0, completed: false },
+            { name: "Мат анализ", value: 0, completed: false },
+            { name: "ИТ", value: 0, completed: false },
+            { name: "Алгебра", value: 0, completed: false },
+            { name: "Геома", value: 0, completed: false }
+        ];
+        this.activeButton = 0;
+        this.buttonsArr = [
+            { name: "Standart", pressed: true },
+            { name: "Marks", pressed: false }
+        ];
     }
     AppComponent.prototype.test = function () {
-        console.log("It's working!");
+        console.log(this.buttonsArr[this.activeButton].name == 'Standart');
+    };
+    AppComponent.prototype.pressButton = function (name) {
+        for (var i = 0; i < this.buttonsArr.length; i++) {
+            this.buttonsArr[i].pressed = false;
+        }
+        for (var i = 0; i < this.buttonsArr.length; i++) {
+            if (name == this.buttonsArr[i].name) {
+                this.buttonsArr[i].pressed = true;
+                this.activeButton = i;
+            }
+        }
     };
     AppComponent.prototype.isEmpty = function (ev, elem) {
         if (ev.target.value != '' && ev.target.value != undefined && ev.target.value != null) {
@@ -41,7 +61,6 @@ var AppComponent = /** @class */ (function () {
                     break;
                 }
             }
-            console.log(this.characteristicsMass[i].completed);
             this.characteristicsMass[i].completed = false;
         }
     };
