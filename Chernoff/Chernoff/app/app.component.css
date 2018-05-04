@@ -1,18 +1,17 @@
 ﻿.buttonToggle {
-    height: 5%;
+    padding: 20px;
     text-align: center;
-    background-color: #dd0031;
+    background-color: #efeeee;
     float: left;
     width: 50%;
-    color: white;
 }
 
 .menuToggle{
     width: 100%;
 }
 
-.pressed{
-    background-color: #a3000b;
+.pressed {
+    background-color: #c2c2c2;
 }
 
 .content{
