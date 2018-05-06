@@ -67,4 +67,10 @@ export class AppComponent {
 
         }
     }
+
+    addMarkInput() {
+        let str: string = "Some subject";
+        let lngs: number = this.marksMass.length;
+        this.marksMass[lngs] = { name: str, value: 0, completed: false };
+    }
 }

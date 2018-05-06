@@ -64,6 +64,11 @@ var AppComponent = /** @class */ (function () {
             this.characteristicsMass[i].completed = false;
         }
     };
+    AppComponent.prototype.addMarkInput = function () {
+        var str = "Some subject";
+        var lngs = this.marksMass.length;
+        this.marksMass[lngs] = { name: str, value: 0, completed: false };
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
