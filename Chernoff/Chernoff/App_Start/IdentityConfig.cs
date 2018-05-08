@@ -1,25 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using Chernoff;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Chernoff.Models;
+using SendGrid;
+using System.Net;
+using System.Configuration;
+using System.Diagnostics;
+using SendGrid.Helpers.Mail;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System;
+using System.Net;
+using System.Net.Mail;
+using SendGrid;
+using System.Configuration;
+using System.Diagnostics;
+using System.Net.Mime;
 
 namespace Chernoff
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            await configSendGridasync(message);
+        }
+
+        // Use NuGet to install SendGrid (Basic C# client lib) 
+        private async Task configSendGridasync(IdentityMessage message)
+        {
+            var myMessage = new SendGridMessage();
+            myMessage.AddTo(message.Destination);
+            myMessage.From = new EmailAddress(
+                "Chernoff.faces@contoso.com", "Ivan S.");
+            myMessage.Subject = message.Subject;
+            myMessage.PlainTextContent = message.Body;
+            myMessage.HtmlContent = message.Body;
+
+            //var credentials = new NetworkCredential(
+            //    ConfigurationManager.AppSettings["mailAccount"],
+            //    ConfigurationManager.AppSettings["mailPassword"]
+            //);
+
+            #region formatter
+            string text = string.Format("Please click on this link to {0}: {1}", message.Subject, message.Body);
+            string html = "Please confirm your account by clicking this link: <a href=\"" + message.Body + "\">link</a><br/>";
+
+            html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + message.Body);
+            #endregion
+
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress("joe@contoso.com");
+            msg.To.Add(new MailAddress(message.Destination));
+            msg.Subject = message.Subject;
+            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
+            //msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("2014ivanee@gmail.com", "wowididit!1)");
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(msg);
         }
     }
 
