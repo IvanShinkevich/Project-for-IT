@@ -7,7 +7,7 @@ declare function reactTriggerChange(node:any):any;
 })
 
 export class AppComponent {
-    //Установки для контролов
+    //Методы для взаимодействия с лицом
 
     //Установка по значению
     setFace(value:any){
@@ -133,29 +133,7 @@ export class AppComponent {
     }
     //Для корректной работы инпутов
 
-    isEmpty(ev: any, elem: string) {
-        if (ev.target.value != '' && ev.target.value != undefined && ev.target.value != null) {
-            for (var i = 0; i < this.characteristicsMass.length; i++) {
-                if (elem == this.characteristicsMass[i].name) {
-                    this.characteristicsMass[i].value = ev.target.value;
-                    break;
-                }
-            }
-            this.characteristicsMass[i].completed = true;
 
-        }
-        else {
-            for (var i = 0; i < this.characteristicsMass.length; i++) {
-                if (elem == this.characteristicsMass[i].name) {
-                    break;
-                }
-            }
-            this.characteristicsMass[i].completed = false;
-
-        }
-
-        console.log(this.characteristicsMass);
-    }
 
     //Части панели управления
 
@@ -195,7 +173,29 @@ export class AppComponent {
         { name: "noseh", value: 0.3, completed: false },
         { name: "face", value: 0.2, completed: false }
     ];
+    isEmpty(ev: any, elem: string) {
+        if (ev.target.value != '' && ev.target.value != undefined && ev.target.value != null) {
+            for (var i = 0; i < this.characteristicsMass.length; i++) {
+                if (elem == this.characteristicsMass[i].name) {
+                    this.characteristicsMass[i].value = ev.target.value;
+                    break;
+                }
+            }
+            this.characteristicsMass[i].completed = true;
 
+        }
+        else {
+            for (var i = 0; i < this.characteristicsMass.length; i++) {
+                if (elem == this.characteristicsMass[i].name) {
+                    break;
+                }
+            }
+            this.characteristicsMass[i].completed = false;
+
+        }
+
+        console.log(this.characteristicsMass);
+    }
 
     //Панель Оценок
     marksMass:any[]=[];
@@ -208,7 +208,128 @@ export class AppComponent {
             this.marksMass[lngs] = { name: this.addMark, value: 0, completed: false };
             this.addMark="";
         }
+        console.log(this.marksMass);
     }
+
+    addValuesAndValid(ev:any, mark:string){
+        if (ev.target.value != '' && ev.target.value != undefined && ev.target.value != null) {
+            for (var i = 0; i < this.marksMass.length; i++) {
+                if (mark == this.marksMass[i].name) {
+                    if(ev.target.value<=10 && ev.target.value>=0){
+                        this.marksMass[i].value = ev.target.value;
+                        this.marksMass[i].completed = true;
+                    }
+                    break;
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < this.marksMass.length; i++) {
+                if (mark == this.marksMass[i].name) {
+                    this.marksMass[i].completed = false;
+                    break;
+                }
+            }
+        }
+
+        console.log(this.marksMass);
+    }
+
+    buildFaceByMarks(){  //всего в шкале 101 деление, изменение по десятым
+        let sred:number=0;
+        let sum:number=0;
+        let face:number=1;    // значения для грустного лица
+        let hair:number=-1;
+        let mouth:number=-1.5;
+        let brow:number=1.1;
+        let nosew:number=1;
+        let noseh:number=0.4;
+        let eyew:number=2;
+        let eyeh:number=0.4;
+        if(this.marksMass.length!=0 && this.marksMass!=null && this.marksMass!=undefined){
+
+            for(let i=0;i<this.marksMass.length;i++){
+                sum+=this.marksMass[i].value*1;
+            }
+
+            sred=parseFloat((sum/this.marksMass.length).toFixed(1))*10;//Среднее значение по оценкам * на 10 = количсетво шагов
+
+            for(let i=0,j=0,l=0;i<=sred;i++){
+
+                if(i%10==1){
+                    if(i<51){
+                        eyew-=0.1;
+                    }
+                    else{
+                        eyew+=0.1;
+                    }
+                    face-=0.1;
+                }
+
+                if(i%5==1){
+                    hair+=0.1
+                }
+
+                if(i%4==1 && j%5!=0){
+                    j++;
+                    mouth+=0.1;
+                }
+                else{
+                    if(i%3==1 && j%5==0){
+                        j++;
+                        mouth+=0.1;
+                    }
+                }
+
+                if(i<51){
+                    if(i%4==1 && j%5!=0){
+                        brow-=0.1;
+                    }
+                    else{
+                        if(i%3==1 && j%5==0){
+                            brow-=0.1;
+                        }
+                    }
+                }
+                else{
+                    if(i%4==1 && j%5!=0){
+                        brow+=0.1;
+                    }
+                    else{
+                        if(i%3==1 && j%5==0){
+                            brow+=0.1;
+                        }
+                    }
+                }
+
+                if(i%30==1){
+                    nosew-=0.1;
+                }
+
+                if(i%17==1){
+                    noseh+=0.1;
+                }
+
+                if(i%13==1 && l%3!=0){
+                    l++;
+                    eyeh+=0.1;
+                }
+                else{
+                    if(i%12==1 && l%3==0){
+                        l++;
+                        eyeh+=0.1;
+                    }
+                }
+
+            }
+
+            this.setAll(face,hair,mouth,brow,nosew,noseh,eyew,eyeh);
+        }
+        else{
+            this.setAll(0.5,0,0,0,0.8,0.7,1.5,0.8);
+        }
+    }
+
     isFilled(ev: any){
         if (ev.target.value != '' && ev.target.value != undefined && ev.target.value != null) {
             this.full=true;
@@ -312,14 +433,14 @@ export class AppComponent {
             from:0,
             to:6,
             //face,hair,mouth,brow,nose w, nose h, eye w, eye h
-            stats:[1,-1,-1,1.5,1,0.5,2,0.2]
+            stats:[1,-1,-1.5,1.1,1,0.4,2,0.4]
         },
         {
             result: "Нельзя утверждать, что Вы эффективный руководитель, но если в возглавляемом Вами коллективе дела идут неплохо, то лучше не принимать коренных изменений и реформ. Они будут для Вас и коллектива чрезмерно трудными. Однако важно обеспечивать совершенство управления в контексте общих тенденций и требований вышестоящего руководства. Надо больше прислушиваться к мнению подчиненных. Постарайтесь выявить стереотипы-блокаторы эффективного управления, овладевайте новыми подходами в своей работе и ориентируйтесь в ее организации на ближайшую и дальнюю перспективу.",
             from:7,
             to:12,
             //face,hair,mouth,brow,nose w, nose h, eye w, eye h
-            stats:[0.7,-0.5,-0.5,0.8,0.9,0.6,1.7,0.5]
+            stats:[0.7,-0.5,-0.8,0.8,0.9,0.6,1.7,0.5]
         },
         {
             result: "Вы можете отнести себя к уровню достаточно сформировавшихся руководителей. Ваши способности и возможности целесообразно совершенствовать применительно к управленческой деятельности. Для достижения более значительных результатов в управлении необходимо овладеть современной системой управленческой деятельности. Обращайте при этом внимание не только на собственное развитие, но чтобы подчиненные тоже овладели моделью, алгоритмом и технологией управленческой деятельности. Это положительно скажется на результатах труда.",
@@ -333,14 +454,14 @@ export class AppComponent {
             from:19,
             to:24,
             //face,hair,mouth,brow,nose w, nose h, eye w, eye h
-            stats:[0.3,0.5,1,1,0.6,1.3,1]
+            stats:[0.3,0.8,1,1,0.6,1.3,1]
         },
         {
             result: "Можно уверенно сказать, что Вы — современный руководитель. Добиваясь эффективного руководства, обращайте внимание на его оптимизацию, что позволит достичь не только более значительных результатов, но и обеспечить максимально возможную комфортность в профессиональной деятельности ив повседневном общении — труде.",
             from:25,
             to:30,
             //face,hair,mouth,brow,nose w, nose h, eye w, eye h
-            stats:[0,1,1.7,1.5,0.6,1,2,1.2]
+            stats:[0,1,1.5,1.5,0.6,1,2,1.2]
         }
     ];
     addToRes(res:number){

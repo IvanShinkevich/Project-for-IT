@@ -22,7 +22,7 @@
                 </span>
                 <div class="buttonToggle" (click)="addMarkInput()">Добавить!</div>
                 <span class="input input--kaede" *ngFor="let mark of marksMass" [class.input--filled]="mark.completed">
-                    <input class="input__field input__field--kaede" step="0.25" type="number" id={{mark.name}} (input)="isEmpty($event,mark.name)" />
+                    <input class="input__field input__field--kaede" type="number" id={{mark.name}} (input)="addValuesAndValid($event,mark.name);buildFaceByMarks()" />
                     <label class="input__label input__label--kaede" for={{mark.name}}>
                         <span class="input__label-content input__label-content--kaede">{{mark.name}}</span>
                     </label>
