@@ -4,24 +4,45 @@
         <div class="menuToggle" *ngFor="let button of buttonsArr">
             <div class="buttonToggle" [class.pressed]="button.pressed" (click)="pressButton(button.name)">{{button.name}}</div>
         </div>
-        <div *ngIf="buttonsArr[activeButton].name=='Standart'; then standart; else marks"></div>
-        <ng-template #standart>
-            <span class="input input--kaede" *ngFor="let input of characteristicsMass" [class.input--filled]="input.completed">
-                <input class="input__field input__field--kaede" step="0.25" type="number" id={{input.name}} (input)="isEmpty($event,input.name)" />
-                <label class="input__label input__label--kaede" for={{input.name}}>
-                    <span class="input__label-content input__label-content--kaede">{{input.name}}</span>
-                </label>
-            </span>
-        </ng-template>
-        <ng-template #marks>
-            <button class="buttonToggle" (click)="addMarkInput()">Добавить отметку</button>
-            <span class="input input--kaede" *ngFor="let mark of marksMass" [class.input--filled]="mark.completed">
-                <input class="input__field input__field--kaede" step="0.25" type="number" id={{mark.name}} (input)="isEmpty($event,mark.name)" />
-                <label class="input__label input__label--kaede" for={{mark.name}}>
-                    <span class="input__label-content input__label-content--kaede">{{mark.name}}</span>
-                </label>
-            </span>
-        </ng-template>
+        <div [ngSwitch]="buttonsArr[activeButton].name">
+            <ng-template ngSwitchCase="Стандарт">
+                <span class="input input--kaede" *ngFor="let input of characteristicsMass" [class.input--filled]="input.completed">
+                    <input class="input__field input__field--kaede" step="0.25" type="number" id={{input.name}} (input)="isEmpty($event,input.name);updateAll()" />
+                    <label class="input__label input__label--kaede" for={{input.name}}>
+                        <span class="input__label-content input__label-content--kaede">{{input.name}}</span>
+                    </label>
+                </span>
+            </ng-template>
+            <ng-template ngSwitchCase="Оценки">
+                <span class="input input--kaede" [class.input--filled]="">
+                    <input class="input__field input__field--kaede" type="text" id="addMark" [(ngModel)]="addMark" (input)="isFilled($event)"/>
+                    <label class="input__label input__label--kaede" for="addMark">
+                        <span class="input__label-content input__label-content--kaede">Название предмета</span>
+                    </label>
+                </span>
+                <div class="buttonToggle" (click)="addMarkInput()">Добавить!</div>
+                <span class="input input--kaede" *ngFor="let mark of marksMass" [class.input--filled]="mark.completed">
+                    <input class="input__field input__field--kaede" step="0.25" type="number" id={{mark.name}} (input)="isEmpty($event,mark.name)" />
+                    <label class="input__label input__label--kaede" for={{mark.name}}>
+                        <span class="input__label-content input__label-content--kaede">{{mark.name}}</span>
+                    </label>
+                </span>
+            </ng-template>
+            <ng-template ngSwitchCase="Опросник">
+                <div *ngFor="let q of questions">
+                    <div *ngIf="indexOfQuest(q.name)==answered">
+                        <h3 style="text-align:left; margin: auto; margin-bottom: 10px">{{q.name}}</h3>
+                        <div class="button" (click)="addToRes(q.yesresult)">Да</div>
+                        <div class="button" (click)="addToRes(q.noresult)">Нет</div>
+                        <div><p>Вопрос {{indexOfQuest(q.name)+1}} из {{questions.length}}</p></div>
+                    </div>
+                </div>
+                <div *ngIf="answered==20">
+                    <p>{{getResults()}}</p>
+                    <div class="button" (click)="startAgain()">Начать сначала</div>
+                </div>
+            </ng-template>
+        </div>
     </section>
  </div>
 

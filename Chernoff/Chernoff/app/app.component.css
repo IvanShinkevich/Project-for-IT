@@ -3,7 +3,17 @@
     text-align: center;
     background-color: #efeeee;
     float: left;
-    width: 50%;
+    width: 33%;
+}
+
+.button{
+    padding: 20px;
+    background-color: #f6f6f6;
+    margin-bottom: 10px;
+}
+
+.opros{
+    padding: 10px;
 }
 
 .menuToggle{

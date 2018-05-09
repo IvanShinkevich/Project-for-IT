@@ -375,7 +375,7 @@
                     brow: '-1'
                 };
             },
-
+            //Generating controlls
             render: function () {
                 return (React.createElement(Grid, null,
                     React.createElement(Row, null,
@@ -386,30 +386,30 @@
                     React.createElement("form", { id: "faceParams", name: "faceParams", className: "form-horizontal" },
                         React.createElement(Row, null,
                             React.createElement(Col, { md: 3, xs: 6 },
-                                React.createElement(Input, { name: "face", label: "face", type: "number", step: "0.1", valueLink: this.linkState('face'), className: "form-control" })
+                                React.createElement(Input, { name: "face",id:"chernFace", label: "face", type: "number", step: "0.1", valueLink: this.linkState('face'), className: "form-control" })
                             ),
                             React.createElement(Col, { md: 3, xs: 6 },
-                                React.createElement(Input, { name: "hair", label: "hair", type: "number", steo: "0.1", valueLink: this.linkState('hair'), className: "form-control" })
+                                React.createElement(Input, { name: "hair", id: "chernHair", label: "hair", type: "number", steo: "0.1", valueLink: this.linkState('hair'), className: "form-control" })
                             ),
                             React.createElement(Col, { md: 3, xs: 6 },
-                                React.createElement(Input, { name: "mouth", label: "mouth", type: "number", step: "0.1", valueLink: this.linkState('mouth'), className: "form-control" })
+                                React.createElement(Input, { name: "mouth", id: "chernMouth", label: "mouth", type: "number", step: "0.1", valueLink: this.linkState('mouth'), className: "form-control" })
                             ),
                             React.createElement(Col, { md: 3, xs: 6 },
-                                React.createElement(Input, { name: "brow", label: "brow", type: "number", step: "0.1", valueLink: this.linkState('brow'), className: "form-control" })
+                                React.createElement(Input, { name: "brow", id: "chernBrow", label: "brow", type: "number", step: "0.1", valueLink: this.linkState('brow'), className: "form-control" })
                             )
                         ),
                         React.createElement(Row, null,
                             React.createElement(Col, { md: 3, xs: 6 },
-                                React.createElement(Input, { name: "nosew", label: "nose w", type: "number", step: "0.1", valueLink: this.linkState('nosew'), className: "form-control" })
+                                React.createElement(Input, { name: "nosew", id: "chernNosew", label: "nose w", type: "number", step: "0.1", valueLink: this.linkState('nosew'), className: "form-control" })
                             ),
                             React.createElement(Col, { md: 3, xs: 6 },
-                                React.createElement(Input, { name: "noseh", label: "nose h", type: "number", step: "0.1", valueLink: this.linkState('noseh'), className: "form-control" })
+                                React.createElement(Input, { name: "noseh", id: "chernNoseh", label: "nose h", type: "number", step: "0.1", valueLink: this.linkState('noseh'), className: "form-control" })
                             ),
                             React.createElement(Col, { md: 3, xs: 6 },
-                                React.createElement(Input, { name: "eyew", label: "eye w", type: "number", step: "0.1", valueLink: this.linkState('eyew'), className: "form-control" })
+                                React.createElement(Input, { name: "eyew", id: "chernEyew", label: "eye w", type: "number", step: "0.1", valueLink: this.linkState('eyew'), className: "form-control" })
                             ),
                             React.createElement(Col, { md: 3, xs: 6 },
-                                React.createElement(Input, { name: "eyeh", label: "eye h", type: "number", step: "0.1", valueLink: this.linkState('eyeh'), className: "form-control" })
+                                React.createElement(Input, { name: "eyeh", id: "chernEyeh", label: "eye h", type: "number", step: "0.1", valueLink: this.linkState('eyeh'), className: "form-control" })
                             )
                         ),
                         React.createElement("br", null)
