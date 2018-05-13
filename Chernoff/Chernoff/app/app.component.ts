@@ -510,8 +510,8 @@ export class AppComponent {
     //Панель курсовой
 
     params=[
-        {name:'Процент сделанной работы',value: 0,completed:false},
-        {name:'Дней до сдачи курсовой',value: 0,completed:false}
+        {name:'Процент сделанной работы',value: '0',completed:false},
+        {name:'Дней до сдачи курсовой',value: '0',completed:false}
         ];
 
     isCompleted(ev: any, elem: string){
@@ -521,7 +521,7 @@ export class AppComponent {
                     if(parseFloat(ev.target.value)>=0 && parseFloat(ev.target.value)<=100)
                         this.params[i].value = ev.target.value;
                     else if(elem=='Дней до сдачи курсовой' && parseInt(ev.target.value)>=0){
-                        this.params[i].value = parseFloat(ev.target.value);
+                        this.params[i].value = ev.target.value;
                     }
                     break;
                 }
@@ -542,6 +542,9 @@ export class AppComponent {
     }
 
     buildFaceByCourse(){
+        let koef: number = 1;
+        let ponizKoef: number=100;
+        let param:number=105;
         let face:number=0.5;    // значения для нейтрального лица
         let hair:number=0;
         let mouth:number=0;
@@ -550,89 +553,198 @@ export class AppComponent {
         let noseh:number=0.7;
         let eyew:number=1.5;
         let eyeh:number=0.8;
-        // if(this.params[0].value==100){
-        //     face=0;
-        //     hair=1;
-        //     mouth=1.5;
-        //     brow=1.5;
-        //     nosew=0.6;
-        //     noseh=1;
-        //     eyew=2;
-        //     eyeh=1.2;
-        // }
-        // else
-        //     for (let i = 1, j = 0, l = 0; i <= this.params[0].value; i++) {
-        //         if(i%20==0){
-        //             face-=0.1;
-        //             eyew+=0.1;
-        //         }
-        //         if(i%10==0){
-        //             hair+=0.1;
-        //         }
-        //         if(i%6==0 && i!=6){
-        //             mouth+=0.1;
-        //             brow+=0.1;
-        //         }
-        //         if(i%50==0){
-        //             nosew-=0.1;
-        //         }
-        //         if(i%33==0){
-        //             noseh+=0.1;
-        //         }
-        //         if(i%25==0){
-        //             eyeh+=0.1;
-        //         }
-        //     }
-        // if(this.params[1].value<30) {
-        //     let koef:number;
-        //     let ponizKoef:number;
-        //     let par:number = this.params[0].value/10;
-        //     switch(par){
-        //         case 0:{
-        //             koef=10;
-        //                 break;
-        //         }
-        //         case 1:{
-        //             koef=9;
-        //             break;
-        //         }
-        //         case 2:{
-        //             koef=8;
-        //             break;
-        //         }
-        //         case 3:{
-        //             koef=7;
-        //             break;
-        //         }
-        //         case 4:{
-        //             koef=6;
-        //             break;
-        //         }
-        //         case 5:{
-        //             koef=5;
-        //             break;
-        //         }
-        //         case 6:{
-        //             koef=4;
-        //             break;
-        //         }
-        //         case 7:{
-        //             koef=3;
-        //             break;
-        //         }
-        //         case 8:{
-        //             koef=2;
-        //             break;
-        //         }
-        //         case 9:{
-        //             koef=1;
-        //             break;
-        //         }
-        //     }
-        //
-        //     ponizKoef=this.params[0].value*koef;
-        //
-        // }
+        if(parseInt(this.params[0].value)==100){
+            face=0;
+            hair=1;  //значения для весёлого лица
+            mouth=1.5;
+            brow=1.5;
+            nosew=0.6;
+            noseh=1;
+            eyew=2;
+            eyeh=1.2;
+            param=210;
+        }
+        else if (parseInt(this.params[1].value) <= 30) {
+
+
+            switch(parseInt(this.params[1].value)){
+                case 0:{
+                    koef=0.6;
+                    break;
+                }
+                case 1:{
+                    koef=0.64;
+                    break;
+                }
+                case 2:{
+                    koef=0.68;
+                    break;
+                }
+                case 3:
+                case 4:{
+                    koef=0.72;
+                    break;
+                }
+                case 5:{
+                    koef=0.74;
+                    break;
+                }
+                case 6:
+                case 7:{
+                    koef=0.77;
+                    break;
+                }
+                case 8:
+                case 9:{
+                    koef=0.81;
+                    break;
+                }
+                case 10:
+                case 11:{
+                    koef=0.88;
+                    break;
+                }
+                case 12:
+                case 13:{
+                    koef=0.89;
+                    break;
+                }
+                case 14:
+                case 15:{
+                    koef=0.90;
+                    break;
+                }
+                case 16:
+                case 17:{
+                    koef=0.91;
+                    break;
+                }
+                case 18:
+                case 19:{
+                    koef=0.92;
+                    break;
+                }
+                case 20:
+                case 21:{
+                    koef=0.93;
+                    break;
+                }
+                case 22:{
+                    koef=0.94;
+                    break;
+                }
+                case 23:{
+                    koef=0.95;
+                    break;
+                }
+                case 24:
+                case 25:{
+                    koef=0.96;
+                    break;
+                }
+                case 26:{
+                    koef=0.97;
+                    break;
+                }
+                case 27:
+                case 28:{
+                    koef=0.98;
+                    break;
+                }
+                case 29:{
+                    koef=0.99;
+                    break;
+                }
+                case 30:{
+                    koef=1;
+                    break;
+                }
+            }
+            console.log(koef);
+            face=1;
+            hair=-1;  //значения для грустного лица
+            mouth=-1.5;
+            brow=1.1;
+            nosew=1;
+            noseh=0.4;
+            eyew=2;
+            eyeh=0.4;
+            //param=210;
+            console.log(parseInt(this.params[0].value)*koef);
+            for (let i = 1; i <= parseInt(this.params[0].value)*koef; i++) {
+                if(i<=45){
+                    if(i%9==0){
+                        face -= 0.1;
+                        eyew -= 0.1;
+                    }
+                    if(i%4==0 && i!=24){
+                        hair+=0.1;
+                    }
+                    if(i%3==0){
+                        mouth+=0.1;
+                    }
+                    if(i%4==0){
+                        brow-=0.1
+                    }
+                    if(i%23==22){
+                        nosew-=0.1;
+                    }
+                    if(i%15==0){
+                        noseh+=0.1;
+                    }
+                    if(i%11==0){
+                        eyeh+=0.1;
+                    }
+                }
+                else{
+                    if(i%9==0){
+                        face -= 0.1;
+                        eyew += 0.1;
+                    }
+                    if(i%4==0 && i!=24){
+                        hair+=0.1;
+                    }
+                    if(i%3==0){
+                        mouth+=0.1;
+                        brow+=0.1
+                    }
+                    if(i%22==0){
+                        nosew-=0.1;
+                    }
+                    if(i%15==14){
+                        noseh+=0.1;
+                    }
+                    if(i%11==0){
+                        eyeh+=0.1;
+                    }
+                }
+            }
+        }
+        else{
+            for (let i = 1; i <= parseInt(this.params[0].value); i++) {
+                if (i % 20 == 0) {
+                    face -= 0.1;
+                    eyew += 0.1;
+                }
+                if (i % 10 == 0) {
+                    hair += 0.1;
+                }
+                if (i % 6 == 0 && i != 6) {
+                    mouth += 0.1;
+                    brow += 0.1;
+                }
+                if (i % 50 == 0) {
+                    nosew -= 0.1;
+                }
+                if (i % 33 == 0) {
+                    noseh += 0.1;
+                }
+                if (i % 25 == 0) {
+                    eyeh += 0.1;
+                }
+            }
+        }
         this.setAll(face, hair, mouth, brow, nosew, noseh, eyew, eyeh);
+        par(param);
     }
 }
