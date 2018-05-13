@@ -20,20 +20,25 @@
                         <span class="input__label-content input__label-content--kaede">Название предмета</span>
                     </label>
                 </span>
-                <div class="buttonToggle" (click)="addMarkInput()">Добавить!</div>
-                <span class="input input--kaede" *ngFor="let mark of marksMass" [class.input--filled]="mark.completed">
-                    <input class="input__field input__field--kaede" type="number" id={{mark.name}} (input)="addValuesAndValid($event,mark.name);buildFaceByMarks()" />
-                    <label class="input__label input__label--kaede" for={{mark.name}}>
-                        <span class="input__label-content input__label-content--kaede">{{mark.name}}</span>
-                    </label>
-                </span>
+                <div class="input input--kaede opros center" style="cursor: pointer" (click)="addMarkInput()">Добавить!</div>
+                <div *ngFor="let mark of marksMass">
+                    <span class="input input--kaede"  [class.input--filled]="mark.completed" style="width: calc(80% - 0.1em)">
+                        <input class="input__field input__field--kaede" type="number" id={{mark.name}} (input)="addValuesAndValid($event,mark.name);buildFaceByMarks()" />
+                        <label class="input__label input__label--kaede" for={{mark.name}}>
+                            <span class="input__label-content input__label-content--kaede">{{mark.name}}</span>
+                        </label>
+                    </span>
+                    <div class="deleteButton" (click)="deleteMarkInput(mark.name)">
+                        Х
+                    </div>
+                </div>
             </ng-template>
             <ng-template ngSwitchCase="Опросник">
                 <div *ngFor="let q of questions">
                     <div *ngIf="indexOfQuest(q.name)==answered">
-                        <h3 style="text-align:left; margin: auto; margin-bottom: 10px">{{q.name}}</h3>
-                        <div class="button" (click)="addToRes(q.yesresult)">Да</div>
-                        <div class="button" (click)="addToRes(q.noresult)">Нет</div>
+                        <h3 style="text-align:left; margin: auto; margin-bottom: 10px; height: 200px">{{q.name}}</h3>
+                        <div class="button center" (click)="addToRes(q.yesresult)">Да</div>
+                        <div class="button center" (click)="addToRes(q.noresult)">Нет</div>
                         <div><p>Вопрос {{indexOfQuest(q.name)+1}} из {{questions.length}}</p></div>
                     </div>
                 </div>
@@ -41,6 +46,14 @@
                     <p>{{getResults()}}</p>
                     <div class="button" (click)="startAgain()">Начать сначала</div>
                 </div>
+            </ng-template>
+            <ng-template ngSwitchCase="Курсовая">
+                <span class="input input--kaede" *ngFor="let p of params" [class.input--filled]="p.completed">
+                    <input class="input__field input__field--kaede" type="number" id="{{p.name}}" (input)="isCompleted($event,p.name);buildFaceByCourse()"/>
+                    <label class="input__label input__label--kaede" for={{p.name}}>
+                        <span class="input__label-content input__label-content--kaede">{{p.name}}</span>
+                    </label>
+                </span>
             </ng-template>
         </div>
     </section>

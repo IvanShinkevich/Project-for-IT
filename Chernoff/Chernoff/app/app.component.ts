@@ -1,5 +1,6 @@
 ﻿import { Component } from '@angular/core'
 declare function reactTriggerChange(node:any):any;
+declare function  par(el:any):any;
 @Component({
     selector: 'my-app',
     templateUrl: `./app/app.component.html`,
@@ -142,8 +143,9 @@ export class AppComponent {
     //Кнопки
     buttonsArr=[
         {name: "Стандарт",pressed:true},
-        { name: "Оценки", pressed: false },
-        {name: "Опросник", pressed: false}
+        {name: "Оценки", pressed: false},
+        {name: "Опросник", pressed: false},
+        {name: "Курсовая", pressed: false},
     ];
 
     activeButton: number = 0;
@@ -159,6 +161,7 @@ export class AppComponent {
             }
         }
     }
+
 
 
     //Стандартная панель
@@ -194,21 +197,29 @@ export class AppComponent {
 
         }
 
-        console.log(this.characteristicsMass);
     }
+
+
 
     //Панель Оценок
     marksMass:any[]=[];
     addMark="";
     full:boolean;
     addMarkInput() {
-        console.log(this.addMark);
         let lngs: number = this.marksMass.length;
         if(this.addMark!="" && this.addMark!=null){
             this.marksMass[lngs] = { name: this.addMark, value: 0, completed: false };
             this.addMark="";
         }
-        console.log(this.marksMass);
+    }
+
+    deleteMarkInput(name:string){
+        for(let i=0;i<this.marksMass.length;i++){
+            if(name==this.marksMass[i].name){
+                this.marksMass.splice(i,1);
+                break;
+            }
+        }
     }
 
     addValuesAndValid(ev:any, mark:string){
@@ -231,11 +242,10 @@ export class AppComponent {
                 }
             }
         }
-
-        console.log(this.marksMass);
     }
 
     buildFaceByMarks(){  //всего в шкале 101 деление, изменение по десятым
+        let param:number=10;
         let sred:number=0;
         let sum:number=0;
         let face:number=1;    // значения для грустного лица
@@ -255,7 +265,7 @@ export class AppComponent {
             sred=parseFloat((sum/this.marksMass.length).toFixed(1))*10;//Среднее значение по оценкам * на 10 = количсетво шагов
 
             for(let i=0,j=0,l=0;i<=sred;i++){
-
+                param+=2;
                 if(i%10==1){
                     if(i<51){
                         eyew-=0.1;
@@ -323,20 +333,18 @@ export class AppComponent {
 
             }
 
+            par(param);
             this.setAll(face,hair,mouth,brow,nosew,noseh,eyew,eyeh);
+
         }
         else{
             this.setAll(0.5,0,0,0,0.8,0.7,1.5,0.8);
+            par(110);
         }
     }
 
     isFilled(ev: any){
-        if (ev.target.value != '' && ev.target.value != undefined && ev.target.value != null) {
-            this.full=true;
-        }
-        else{
-            this.full=false;
-        }
+        this.full = ev.target.value != '' && ev.target.value != undefined && ev.target.value != null;
     }
 
 
@@ -433,35 +441,40 @@ export class AppComponent {
             from:0,
             to:6,
             //face,hair,mouth,brow,nose w, nose h, eye w, eye h
-            stats:[1,-1,-1.5,1.1,1,0.4,2,0.4]
+            stats:[1,-1,-1.5,1.1,1,0.4,2,0.4],
+            par:10
         },
         {
             result: "Нельзя утверждать, что Вы эффективный руководитель, но если в возглавляемом Вами коллективе дела идут неплохо, то лучше не принимать коренных изменений и реформ. Они будут для Вас и коллектива чрезмерно трудными. Однако важно обеспечивать совершенство управления в контексте общих тенденций и требований вышестоящего руководства. Надо больше прислушиваться к мнению подчиненных. Постарайтесь выявить стереотипы-блокаторы эффективного управления, овладевайте новыми подходами в своей работе и ориентируйтесь в ее организации на ближайшую и дальнюю перспективу.",
             from:7,
             to:12,
             //face,hair,mouth,brow,nose w, nose h, eye w, eye h
-            stats:[0.7,-0.5,-0.8,0.8,0.9,0.6,1.7,0.5]
+            stats:[0.7,-0.5,-0.8,0.8,0.9,0.6,1.7,0.5],
+            par:60
         },
         {
             result: "Вы можете отнести себя к уровню достаточно сформировавшихся руководителей. Ваши способности и возможности целесообразно совершенствовать применительно к управленческой деятельности. Для достижения более значительных результатов в управлении необходимо овладеть современной системой управленческой деятельности. Обращайте при этом внимание не только на собственное развитие, но чтобы подчиненные тоже овладели моделью, алгоритмом и технологией управленческой деятельности. Это положительно скажется на результатах труда.",
             from:13,
             to:18,
             //face,hair,mouth,brow,nose w, nose h, eye w, eye h
-            stats:[0.5,0,0,0,0.8,0.7,1.5,0.8]
+            stats:[0.5,0,0,0,0.8,0.7,1.5,0.8],
+            par:110
         },
         {
             result: "Вы относитесь к числу эффективных руководителей. Умеете выделить главное в работе и концентрировать на ключевых направлениях необходимые силы и средства. Ваша сильная сторона состоит в сочетании текущего и перспективного планирования труда, умении последовательно решать принципиальные вопросы, использовать потенциал персонала, не останавливаться перед такими трудностями, как нажим, командирский тон, конфликты. Будет правильно, если Вы начнете активнее внедрять в практику управления современные подходы. Ваш опыт руководства следовало бы очистить от имеющихся стереотипов-блокаторов. Управленческая деятельность на порученном Вам участке организуется достаточно эффективно.",
             from:19,
             to:24,
             //face,hair,mouth,brow,nose w, nose h, eye w, eye h
-            stats:[0.3,0.8,1,1,0.6,1.3,1]
+            stats:[0.3,0.8,1,1,0.6,1.3,1.8,1],
+            par:160
         },
         {
             result: "Можно уверенно сказать, что Вы — современный руководитель. Добиваясь эффективного руководства, обращайте внимание на его оптимизацию, что позволит достичь не только более значительных результатов, но и обеспечить максимально возможную комфортность в профессиональной деятельности ив повседневном общении — труде.",
             from:25,
             to:30,
             //face,hair,mouth,brow,nose w, nose h, eye w, eye h
-            stats:[0,1,1.5,1.5,0.6,1,2,1.2]
+            stats:[0,1,1.5,1.5,0.6,1,2,1.2],
+            par:210
         }
     ];
     addToRes(res:number){
@@ -472,6 +485,7 @@ export class AppComponent {
         for(let i=0;i<this.results.length;i++){
             if(this.resultVar<=this.results[i].to && this.resultVar>=this.results[i].from){
                 this.setAll(this.results[i].stats[0],this.results[i].stats[1],this.results[i].stats[2],this.results[i].stats[3],this.results[i].stats[4],this.results[i].stats[5],this.results[i].stats[6],this.results[i].stats[7]);
+                par(this.results[i].par);
                 return this.results[i].result;
             }
         }
@@ -491,5 +505,134 @@ export class AppComponent {
     startAgain(){
         this.answered=0;
         this.resultVar=0;
+    }
+
+    //Панель курсовой
+
+    params=[
+        {name:'Процент сделанной работы',value: 0,completed:false},
+        {name:'Дней до сдачи курсовой',value: 0,completed:false}
+        ];
+
+    isCompleted(ev: any, elem: string){
+        if (ev.target.value != '' && ev.target.value != undefined && ev.target.value != null) {
+            for (var i = 0; i < this.params.length; i++) {
+                if (elem == this.params[i].name) {
+                    if(parseFloat(ev.target.value)>=0 && parseFloat(ev.target.value)<=100)
+                        this.params[i].value = ev.target.value;
+                    else if(elem=='Дней до сдачи курсовой' && parseInt(ev.target.value)>=0){
+                        this.params[i].value = parseFloat(ev.target.value);
+                    }
+                    break;
+                }
+            }
+            this.params[i].completed = true;
+
+        }
+        else {
+            for (var i = 0; i < this.params.length; i++) {
+                if (elem == this.params[i].name) {
+                    break;
+                }
+            }
+            this.params[i].completed = false;
+
+        }
+
+    }
+
+    buildFaceByCourse(){
+        let face:number=0.5;    // значения для нейтрального лица
+        let hair:number=0;
+        let mouth:number=0;
+        let brow:number=0;
+        let nosew:number=0.8;
+        let noseh:number=0.7;
+        let eyew:number=1.5;
+        let eyeh:number=0.8;
+        // if(this.params[0].value==100){
+        //     face=0;
+        //     hair=1;
+        //     mouth=1.5;
+        //     brow=1.5;
+        //     nosew=0.6;
+        //     noseh=1;
+        //     eyew=2;
+        //     eyeh=1.2;
+        // }
+        // else
+        //     for (let i = 1, j = 0, l = 0; i <= this.params[0].value; i++) {
+        //         if(i%20==0){
+        //             face-=0.1;
+        //             eyew+=0.1;
+        //         }
+        //         if(i%10==0){
+        //             hair+=0.1;
+        //         }
+        //         if(i%6==0 && i!=6){
+        //             mouth+=0.1;
+        //             brow+=0.1;
+        //         }
+        //         if(i%50==0){
+        //             nosew-=0.1;
+        //         }
+        //         if(i%33==0){
+        //             noseh+=0.1;
+        //         }
+        //         if(i%25==0){
+        //             eyeh+=0.1;
+        //         }
+        //     }
+        // if(this.params[1].value<30) {
+        //     let koef:number;
+        //     let ponizKoef:number;
+        //     let par:number = this.params[0].value/10;
+        //     switch(par){
+        //         case 0:{
+        //             koef=10;
+        //                 break;
+        //         }
+        //         case 1:{
+        //             koef=9;
+        //             break;
+        //         }
+        //         case 2:{
+        //             koef=8;
+        //             break;
+        //         }
+        //         case 3:{
+        //             koef=7;
+        //             break;
+        //         }
+        //         case 4:{
+        //             koef=6;
+        //             break;
+        //         }
+        //         case 5:{
+        //             koef=5;
+        //             break;
+        //         }
+        //         case 6:{
+        //             koef=4;
+        //             break;
+        //         }
+        //         case 7:{
+        //             koef=3;
+        //             break;
+        //         }
+        //         case 8:{
+        //             koef=2;
+        //             break;
+        //         }
+        //         case 9:{
+        //             koef=1;
+        //             break;
+        //         }
+        //     }
+        //
+        //     ponizKoef=this.params[0].value*koef;
+        //
+        // }
+        this.setAll(face, hair, mouth, brow, nosew, noseh, eyew, eyeh);
     }
 }

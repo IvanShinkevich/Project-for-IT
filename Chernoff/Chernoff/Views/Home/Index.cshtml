@@ -4,6 +4,11 @@
 <head>
     <script src="app/js/chernoff.js" type="text/javascript"></script>
 
+    <link rel="stylesheet" href="app/style/mainStyle.css" type="text/css" />
+  
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="app/js/Visual.js" type="text/javascript"></script>
+
         <style type="text/css">
             .chernoff > * {
                 fill: none;
@@ -15,14 +20,31 @@
         </style>
     <script src="~/Scripts/reactTriggerChange.js" type="text/javascript"></script>
         <script src="https://cdn.rawgit.com/ccampbell/mousetrap/2e5c2a8adbe80a89050aaf4e02c45f02f1cc12d4/tests/libs/key-event.js"></script>
+    <script>
+        var par = function (el) {
+            params(el);
+        }
+    </script>
 </head>
 <body>
-
+    
     <my-app>Загрузка приложения</my-app>
 
-    <div class="container" style="width:49%; float:right;">
-        <div id="chernoff-demo-base"></div>
+    <div style="width:49%; float:right">
+        <div class="container litso" style="display:flex">
+            <div id="chernoff-demo-base" style="margin:auto"></div>
+        </div>
+
+        <div class="visual hidden"></div>
+        <script src="app/js/Visual.js" type="text/javascript"></script>
+
+        <div>
+            <div class="buttonToggle forScript1 pressed">Face</div>
+            <div class="buttonToggle forScript2" >Not Face</div>
+        </div>
     </div>
+
+    <script src="app/js/mainScripts.js" type="text/javascript"></script>
 </body>
 
 

@@ -1,0 +1,32 @@
+.buttonToggle {
+    padding: 20px;
+    text-align: center;
+    background-color: #efeeee;
+    float: right;
+    cursor: pointer;
+    width:49%;
+}
+.pressed {
+    background-color: #c2c2c2;
+}
+
+.hidden{
+    display: none;
+}
+
+.visual{
+    display: flex;
+}
+
+.litso{
+    width: 400px;
+    height: 400px;
+}
+
+.marginAuto{
+    margin: auto;
+}
+
+.displayFlex{
+    display: flex;
+}

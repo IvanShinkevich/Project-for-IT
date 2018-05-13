@@ -3,10 +3,22 @@
     text-align: center;
     background-color: #efeeee;
     float: left;
-    width: 33%;
+    cursor: pointer;
+    width:25%;
+}
+
+.deleteButton{
+    display:inline-block;
+    padding: 1.67em;
+    text-align: center;
+    background-color: #efeeee;
+    width: 19%;
+    margin: 1% 0;
+    cursor: pointer;
 }
 
 .button{
+    cursor: pointer;
     padding: 20px;
     background-color: #f6f6f6;
     margin-bottom: 10px;
@@ -22,6 +34,10 @@
 
 .pressed {
     background-color: #c2c2c2;
+}
+
+.center{
+    text-align: center;
 }
 
 .content{
@@ -63,7 +79,6 @@ a {
 
 .container {
     margin: 0 auto;
-    text-align: center;
     overflow: hidden;
 }
 
@@ -127,15 +142,13 @@ body .nomargin-bottom {
     position: relative;
     z-index: 1;
     display: inline-block;
-    margin: 1%;
-    max-width: 400px;
-    width: calc(100% - 2em);
+    margin: 1% 0;
+    width: 100%;
     vertical-align: top;
 }
 
 .input__field {
     position: relative;
-    display: block;
     float: right;
     padding: 0.8em;
     width: 60%;
