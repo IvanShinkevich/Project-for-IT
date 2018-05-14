@@ -12,6 +12,12 @@
                         <span class="input__label-content input__label-content--kaede">{{input.name}}</span>
                     </label>
                 </span>
+                <!--<span class="input input--kaede" [class.input--filled]="input.completed">
+                    <input class="input__field input__field--kaede" step="0.25" type="number" id={{input.name}} (input)="isEmpty($event,input.name);updateAll()" />
+                    <label class="input__label input__label--kaede" for={{input.name}}>
+                        <span class="input__label-content input__label-content--kaede">{{input.name}}</span>
+                    </label>
+                </span>-->
             </ng-template>
             <ng-template ngSwitchCase="Оценки">
                 <span class="input input--kaede" [class.input--filled]="">

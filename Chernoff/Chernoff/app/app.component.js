@@ -632,9 +632,10 @@ var AppComponent = /** @class */ (function () {
             noseh = 0.4;
             eyew = 2;
             eyeh = 0.4;
-            //param=210;
+            param = 10;
             console.log(parseInt(this.params[0].value) * koef);
             for (var i = 1; i <= parseInt(this.params[0].value) * koef; i++) {
+                param += 2;
                 if (i <= 45) {
                     if (i % 9 == 0) {
                         face -= 0.1;
@@ -685,6 +686,7 @@ var AppComponent = /** @class */ (function () {
         }
         else {
             for (var i = 1; i <= parseInt(this.params[0].value); i++) {
+                param += 2;
                 if (i % 20 == 0) {
                     face -= 0.1;
                     eyew += 0.1;
