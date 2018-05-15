@@ -166,6 +166,7 @@ export class AppComponent {
 
     //Стандартная панель
 
+    parametr: { value: number, completed: boolean } = { value:10, completed:false};
     characteristicsMass = [
         { name: "eyew", value: -1.9, completed: false },
         { name: "eyeh", value: 0.6, completed: false },
@@ -197,6 +198,16 @@ export class AppComponent {
 
         }
 
+    }
+    isEmptyForCircle(ev: any) {
+        this.parametr.completed = ev.target.value != '' && ev.target.value != undefined && ev.target.value != null;
+
+        if (this.parametr.completed) {
+            if (ev.target.value >= 10 && ev.target.value <= 210) {
+                this.parametr.value = parseInt(ev.target.value);
+                par(parseInt(ev.target.value));
+            }
+        }
     }
 
 

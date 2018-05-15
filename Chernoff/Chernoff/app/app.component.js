@@ -21,6 +21,7 @@ var AppComponent = /** @class */ (function () {
         ];
         this.activeButton = 0;
         //Стандартная панель
+        this.parametr = { value: 10, completed: false };
         this.characteristicsMass = [
             { name: "eyew", value: -1.9, completed: false },
             { name: "eyeh", value: 0.6, completed: false },
@@ -328,6 +329,15 @@ var AppComponent = /** @class */ (function () {
                 }
             }
             this.characteristicsMass[i].completed = false;
+        }
+    };
+    AppComponent.prototype.isEmptyForCircle = function (ev) {
+        this.parametr.completed = ev.target.value != '' && ev.target.value != undefined && ev.target.value != null;
+        if (this.parametr.completed) {
+            if (ev.target.value >= 10 && ev.target.value <= 210) {
+                this.parametr.value = parseInt(ev.target.value);
+                par(parseInt(ev.target.value));
+            }
         }
     };
     AppComponent.prototype.addMarkInput = function () {
